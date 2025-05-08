@@ -42,6 +42,10 @@ aapl_hist["SMA50"] = aapl_hist['Close'].rolling(window=num_periods50).mean()
 start_date_x_days_before = get_date_x_days_before(start_date, num_periods200*2)
 aapl_hist["SMA200"] = aapl_hist['Close'].rolling(window=num_periods200).mean()
 
+aapl_hist['signal'] = 0
+aapl_hist.loc[aapl_hist['SMA50'] > aapl_hist['SMA200'], 'signal'] = 1 #buy signal
+aapl_hist.loc[aapl_hist['SMA50'] < aapl_hist['SMA200'], 'signal'] = -1 #sell signal
+
 
 
 plt.plot(aapl_hist['Close'])
